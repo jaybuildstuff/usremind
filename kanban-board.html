@@ -1,1 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Exciting games coming soon to UsRemind – crossword puzzles, memory games, and more!">
+    <meta name="theme-color" content="#222">
+    
+    <title>UsRemind — Games Coming Soon</title> <!-- Updated Title -->
+
+    <!-- Favicon - you'd place your actual favicon here -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Preload Font Awesome for better performance -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"></noscript>
+
+    <!-- Your custom styles for the overall site (copied from previous code for consistency) -->
+    <style>
+        /* Custom Colors (from your palette) */
+        :root {
+            --color-cream: #F5EFE6;
+            --color-ink: #2B2B2F;
+            --color-tangerine: #FF7A00;
+            --color-mustard: #FFD200;
+            --color-sky: #27C1F7;
+            --color-leaf: #B6F39A;
+            --color-coral: #FF7F41;
+            --color-fuchsia: #FF4FB8;
+            --color-blue-button: #2d9cff;
+            --color-orange-ribbon: #ff8e2b;
+            --color-light-bg-base: #1693ff; /* Body background */
+            --color-white-pattern-blob: rgba(255,255,255,0.4);
+            --color-white-pattern-blob-30: rgba(255,255,255,0.3);
+            --color-white-pattern-blob-35: rgba(255,255,255,0.35);
+            --color-text-ink-60: rgba(43,43,47,0.6);
+            --color-text-ink-70: rgba(43,43,47,0.7);
+            --color-text-ink-80: rgba(43,43,47,0.8);
+            --color-text-white-80: rgba(255,255,255,0.8);
+            --color-text-white-90: rgba(255,255,255,0.9);
+            --color-black-10: rgba(0,0,0,0.1);
+            --color-black-5: rgba(0,0,0,0.05);
+
+            /* Dark Mode Colors (approximate, based on your principles) */
+            --dark-color-ink: #F5F5F5; /* Light text for dark mode */
+            --dark-color-cream: #2B2B2F; /* Darker cream for dark mode */
+            --dark-color-light-bg-base: #121218; /* Soft dark background */
+            --dark-color-main-card-bg: #1E1E1E; /* Soft dark for main container */
+            --dark-color-blue-button: #4DAAFF;
+            --dark-color-orange-ribbon: #FFB060;
+            --dark-color-white-pattern-blob: rgba(255,255,255,0.1);
+            --dark-color-black-10: rgba(255,255,255,0.1);
+            --dark-color-black-5: rgba(255,255,255,0.05);
+            --dark-color-text-muted: rgba(255,255,255,0.6);
+            --dark-color-text-light: rgba(255,255,255,0.9);
+
+            /* Specific feature colors (adjusted for dark mode) */
+            --color-birthday-banner-bg: #FFD700;
+            --color-birthday-banner-text: #8B4513;
+            --color-modal-overlay-bg: rgba(0, 0, 0, 0.6);
+            --color-modal-bg: #ffffff;
+            --color-modal-close-btn: #888;
+            --color-cursor: #2B2B2F; /* Ink color for cursor */
+            --color-birthday-alert: #FF4500; /* Original alert color for contrast */
+
+            --dark-color-birthday-banner-bg: #B8860B; /* Darker gold for dark mode */
+            --dark-color-birthday-banner-text: #FFD700; /* Lighter text for dark mode */
+            --color-modal-overlay-dark: rgba(0, 0, 0, 0.8);
+            --color-modal-bg-dark: #2A2A2A;
+            --dark-color-modal-close-btn: #AAA;
+            --dark-color-tangerine: #FF7A00; /* Keep tangerine for alert in dark mode */
+
+            /* Custom message box colors */
+            --color-message-box-bg: #333;
+            --color-message-box-text: #fff;
+            --color-message-box-info: #2196F3;
+            --color-message-box-success: #4CAF50;
+            --color-message-box-error: #F44336;
+        }
+
+        html.dark-mode {
+            --color-ink: var(--dark-color-ink);
+            --color-cream: var(--dark-color-cream);
+            --color-light-bg-base: var(--dark-color-light-bg-base);
+            --color-main-card-bg: var(--dark-color-main-card-bg);
+            --color-blue-button: var(--dark-color-blue-button);
+            --color-orange-ribbon: var(--dark-color-orange-ribbon);
+            --color-white-pattern-blob: var(--dark-color-white-pattern-blob);
+            --color-white-pattern-blob-30: var(--dark-color-white-pattern-blob);
+            --color-white-pattern-blob-35: var(--dark-color-white-pattern-blob);
+            --color-text-ink-60: var(--dark-color-text-muted);
+            --color-text-ink-70: var(--dark-color-text-muted);
+            --color-text-ink-80: var(--dark-color-text-muted);
+            --color-text-white-80: var(--dark-color-text-light);
+            --color-text-white-90: var(--dark-color-text-light);
+            --color-black-10: rgba(255,255,255,0.1);
+            --color-black-5: rgba(255,255,255,0.05);
+
+            --color-birthday-banner-bg: var(--dark-color-birthday-banner-bg);
+            --color-birthday-banner-text: var(--dark-color-birthday-banner-text);
+            --color-modal-overlay-bg: var(--color-modal-overlay-dark);
+            --color-modal-bg: var(--color-modal-bg-dark);
+            --color-modal-close-btn: var(--dark-color-modal-close-btn);
+            --color-cursor: var(--dark-color-ink); /* Cursor is light in dark mode */
+            --color-birthday-alert: var(--color-birthday-alert); /* Keep original alert color for contrast */
+        }
+
+        body {
+            margin: 0;
+            /* Updated background for animated gradient */
+            background: linear-gradient(135deg, var(--color-light-bg-base), var(--color-sky), var(--color-blue-button), #004d99, #00264d); /* Added darker blues */
+            background-size: 400% 400%; /* Larger background to allow movement */
+            animation: gradient-animation 20s ease infinite; /* Slower, smoother animation */
+            font-family: 'Poppins', sans-serif;
+            color: var(--color-ink);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; /* Allow content to stack vertically */
+            justify-content: flex-start; /* Align content to the top */
+            align-items: center;
+            padding: 2.5rem 1.25rem; /* Re-added padding to body to show background */
+            box-sizing: border-box;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            cursor: none; /* Hide default cursor */
+        }
+
+        /* Gradient animation keyframes */
+        @keyframes gradient-animation {
+            0% { background-position: 0% 0%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* Dark mode gradient adjustment */
+        html.dark-mode body {
+            background: linear-gradient(135deg, var(--dark-color-light-bg-base), #121218, #000000, #1a1a20, #0a0a10); /* Darker gradient for dark mode */
+            background-size: 400% 400%;
+            animation: gradient-animation 20s ease infinite;
+        }
+
+
+        /* Decorative ribbons */
+        .ribbon-decoration {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+        }
+        .ribbon-decoration > div {
+            position: absolute;
+            background-color: var(--color-orange-ribbon);
+            border-radius: 9999px;
+        }
+        .ribbon-decoration .ribbon-1 {
+            left: -6rem; top: 25%; transform: rotate(-25deg);
+            width: 26.25rem; height: 2.375rem;
+        }
+        .ribbon-decoration .ribbon-2 {
+            right: -7rem; bottom: 2.5rem; transform: rotate(25deg);
+            width: 20rem; height: 1.625rem;
+        }
+        .ribbon-decoration .slash-text {
+            position: absolute; right: 2rem; bottom: 1.5rem;
+            color: var(--color-text-white-80); font-size: 3.75rem; user-select: none;
+        }
+        html.dark-mode .ribbon-decoration > div {
+            background-color: var(--dark-color-orange-ribbon);
+        }
+        html.dark-mode .ribbon-decoration .slash-text {
+            color: var(--dark-color-text-white-80);
+        }
+
+        /* Main card container */
+        .main-card-wrapper {
+            position: relative;
+            max-width: 72rem; /* 1152px */
+            width: 100%; /* Take full width to center content */
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0; /* Removed horizontal padding from here, now handled by body */
+            box-sizing: border-box;
+        }
+        @media (min-width: 768px) {
+            .main-card-wrapper { padding: 0; } /* Ensure no padding on larger screens either */
+        }
+
+        /* This is the main visual container that now wraps everything */
+        .main-card {
+            margin-top: 0; /* Removed margin-top as it's now the primary container */
+            background-color: var(--color-cream);
+            border-radius: 2rem; /* 32px */
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08); /* soft shadow */
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+            transition: background-color 0.5s ease, box-shadow 0.5s ease;
+            /* Padding for the entire content block */
+            padding-bottom: 2.5rem; /* Add padding to the bottom of the main card */
+            min-height: 70vh; /* Ensure card is tall enough for content */
+            display: flex;
+            flex-direction: column;
+        }
+        html.dark-mode .main-card {
+            background-color: var(--dark-color-main-card-bg);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.4); /* soft-dark shadow */
+        }
+
+        /* Soft pattern blobs */
+        .pattern-blobs {
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+        }
+        .pattern-blobs > div {
+            position: absolute;
+            background-color: var(--color-white-pattern-blob);
+            border-radius: 9999px; /* full rounded for blobs */
+        }
+        .pattern-blobs .blob-1 { left: -2.5rem; top: 1.5rem; width: 11rem; height: 11rem; border-radius: 36% 64% 57% 43%/57% 43% 36% 64%; }
+        .pattern-blobs .blob-2 { right: 1.5rem; top: 1.5rem; width: 9rem; height: 9rem; background-color: var(--color-white-pattern-blob-30); border-radius: 52% 48% 40% 60%/48% 60% 40% 52%; }
+        .pattern-blobs .blob-3 { left: 2.5rem; bottom: 2.5rem; width: 12rem; height: 9rem; background-color: var(--color-white-pattern-blob-30); border-radius: 60% 40% 59% 41%/43% 57% 37% 63%; }
+        .pattern-blobs .blob-4 { right: 2rem; bottom: 1.5rem; width: 8rem; height: 6rem; background-color: var(--color-white-pattern-blob-35); border-radius: 42% 58% 40% 60%/48% 52% 46% 54%; }
+        html.dark-mode .pattern-blobs > div {
+            background-color: var(--dark-color-white-pattern-blob);
+        }
+
+        /* NAV */
+        .main-nav {
+            position: relative; z-index: 10;
+            padding: 1.25rem 1.5rem; /* 20px 24px */
+            display: flex; align-items: center; justify-content: space-between;
+            width: 100%; /* Ensure nav takes full width within its container */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+        @media (min-width: 768px) { .main-nav { padding-left: 2.5rem; padding-right: 2.5rem; } }
+
+        .logo-group { display: flex; align-items: center; gap: 0.75rem; }
+        .logo-icon { width: 2rem; height: 2rem; border-radius: 0.75rem; background: linear-gradient(to bottom right, var(--color-mustard), var(--color-coral)); }
+        .logo-text { color: var(--color-ink); font-weight: 600; font-size: 1.125rem; }
+        html.dark-mode .logo-text { color: var(--dark-color-ink); }
+
+        .nav-links { display: flex; align-items: center; gap: 2rem; color: var(--color-ink); opacity: 0.8; }
+        @media (max-width: 767px) { .nav-links { display: none; } } /* Hide on mobile */
+        .nav-links a:hover { color: var(--color-ink); opacity: 1; }
+        html.dark-mode .nav-links { color: var(--dark-color-ink); }
+        html.dark-mode .nav-links a:hover { color: var(--dark-color-ink); }
+
+        .nav-buttons { display: flex; align-items: center; gap: 0.75rem; }
+        .nav-button-signup {
+            display: none; /* Always hidden now */
+        }
+
+        /* Fixed Position Buttons (Theme, Birthday, Calendar) */
+        .fixed-action-btn {
+            position: fixed; top: 20px; width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+            background-color: var(--color-blue-button); color: white; border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        }
+        .fixed-action-btn:hover { transform: scale(1.05); }
+        html.dark-mode .fixed-action-btn { background-color: var(--dark-color-blue-button); color: var(--dark-color-ink); }
+
+        .theme-toggle-btn { right: 20px; }
+        .birthday-info-btn { right: 70px; }
+        .calendar-info-btn { right: 120px; }
+
+        @media (max-width: 767px) {
+            .fixed-buttons-wrapper {
+                position: static;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-end; /* Align to the right */
+                gap: 0.5rem; /* Smaller gap on mobile */
+            }
+            .fixed-action-btn {
+                position: static; /* Remove fixed positioning on mobile */
+                margin-left: 0.5rem; /* Add some spacing */
+                margin-right: 0.5rem;
+            }
+            .nav-buttons {
+                display: flex;
+                flex-wrap: wrap; /* Allow buttons to wrap */
+                justify-content: flex-end; /* Align to the right */
+                gap: 0.5rem; /* Smaller gap on mobile */
+            }
+            /* Adjust overall nav on small screens if needed */
+            .main-nav {
+                flex-wrap: wrap;
+                justify-content: space-between;
+                padding-bottom: 0.5rem; /* Add some padding below if buttons wrap */
+            }
+            /* Move fixed buttons to inside the nav-buttons container for mobile */
+            .theme-toggle-btn, .birthday-info-btn, .calendar-info-btn {
+                position: relative; /* Make them relative inside flex container */
+                top: auto;
+                right: auto;
+            }
+        }
+
+
+        .birthday-info-btn.alert {
+            animation: pulse-alert 1.5s infinite;
+            background-color: var(--color-tangerine);
+            color: white; /* Ensure text is white for alert */
+        }
+        html.dark-mode .birthday-info-btn.alert {
+            background-color: var(--dark-color-tangerine);
+        }
+        @keyframes pulse-alert {
+            0% { box-shadow: 0 0 0 0 rgba(255, 122, 0, 0.7); } /* Tangerine glow */
+            70% { box-shadow: 0 0 0 10px rgba(255, 122, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 122, 0, 0); }
+        }
+
+        /* HERO */
+        .hero-section {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 0 1.5rem; /* Horizontal padding for content */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh; /* Make it take up most of the viewport height */
+            width: 100%; /* Ensure it takes full width */
+            box-sizing: border-box; /* Include padding in width/height */
+        }
+        @media (min-width: 768px) { .hero-section { padding-left: 2.5rem; padding-right: 2.5rem; } }
+
+        .hero-headline {
+            font-size: 2.5rem; /* Increased font size */
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            color: var(--color-ink);
+            margin-top: 0.5rem;
+            line-height: 1.1; /* Tighter line height for impact */
+        }
+        @media (min-width: 768px) { .hero-headline { font-size: 4.5rem; } /* Larger on desktop */ }
+        html.dark-mode .hero-headline { color: var(--dark-color-ink); }
+
+        .hero-subtext {
+            color: var(--color-ink);
+            opacity: 0.6;
+            margin-top: 1rem; /* More space below headline */
+            font-size: 1.125rem; /* Slightly larger subtext */
+            max-width: 600px; /* Limit width for readability */
+        }
+        html.dark-mode .hero-subtext { color: var(--dark-color-text-muted); }
+
+        /* GRID */
+        .main-grid-section {
+            position: relative; z-index: 10;
+            padding: 2.5rem 1.5rem 0; /* More padding at top to separate from hero, no bottom padding */
+            width: 100%; /* Ensure it takes full width */
+            box-sizing: border-box;
+        }
+        @media (min-width: 768px) { .main-grid-section { padding-left: 2.5rem; padding-right: 2.5rem; } }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) { .grid-container { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+        /* Card Styles */
+        .card {
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+            position: relative; overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.5s ease, color 0.5s ease; /* Added transform to transition */
+            cursor: pointer; /* Indicate clickable */
+        }
+        html.dark-mode .card { box-shadow: 0 12px 24px rgba(0,0,0,0.4); }
+
+        /* Hover effect for all cards */
+        .card:hover {
+            transform: translateY(-5px); /* Lifts the card slightly */
+            box-shadow: 0 16px 32px rgba(0,0,0,0.15); /* More pronounced shadow on hover */
+        }
+        html.dark-mode .card:hover {
+            box-shadow: 0 16px 32px rgba(0,0,0,0.6); /* Darker shadow for dark mode */
+        }
+
+        /* New styles for expanded card */
+        .card.is-expanded {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1); /* Ensure it's not scaled down initially */
+            width: 90vw; /* Take up 90% of viewport width */
+            height: 90vh; /* Take up 90% of viewport height */
+            max-width: 1200px; /* Optional: limit max size on very large screens */
+            max-height: 800px; /* Optional: limit max height */
+            z-index: 1001; /* Higher than fixed buttons, lower than modals */
+            padding: 2rem; /* More padding when expanded */
+            overflow-y: auto; /* Allow scrolling if content overflows */
+            cursor: zoom-out; /* Indicate it's clickable to close */
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4); /* More prominent shadow */
+            border: 2px solid var(--color-blue-button); /* Add a border for emphasis */
+        }
+
+        html.dark-mode .card.is-expanded {
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+            border-color: var(--dark-color-blue-button);
+        }
+
+        /* Adjust content within expanded card if necessary */
+        .card.is-expanded .card-title {
+            font-size: 2rem; /* Larger title when expanded */
+        }
+        .card.is-expanded .card-body-text,
+        .card.is-expanded .card-text-muted,
+        .card.is-expanded .card-image-text,
+        .card.is-expanded .weather-widget-content .text {
+            font-size: 1.1rem; /* Slightly larger text when expanded */
+            line-height: 1.4; /* Adjusted line height for expanded text */
+            max-width: 100%; /* Allow full width for text in expanded state */
+        }
+        .card.is-expanded .card-image-placeholder {
+            height: 250px; /* Larger image placeholder */
+        }
+        .card.is-expanded .weather-widget-content .icon {
+            font-size: 4rem; /* Larger icon */
+        }
+        .card.is-expanded .flex.gap-3.mt-4.justify-center.flex-wrap {
+            margin-top: 2rem; /* More space for buttons */
+        }
+
+
+        /* Backdrop for expanded card */
+        .backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+            z-index: 1000; /* Below expanded card, above other content */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .backdrop.is-active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Disable scrolling on body when card is expanded */
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+
+        /* Specific Card Backgrounds and Text Colors */
+        .card.bg-white { background-color: white; color: var(--color-ink); }
+        html.dark-mode .card.bg-white { background-color: var(--dark-color-main-card-bg); color: var(--dark-color-ink); }
+
+        .card.bg-tangerine { background-color: var(--color-tangerine); color: white; }
+        html.dark-mode .card.bg-tangerine { background-color: var(--color-tangerine); }
+
+        .card.bg-mustard { background-color: var(--color-mustard); color: var(--color-ink); }
+        html.dark-mode .card.bg-mustard { background-color: var(--color-mustard); color: var(--dark-color-ink); }
+
+        .card.bg-coral { background-color: var(--color-coral); color: white; }
+        html.dark-mode .card.bg-coral { background-color: var(--color-coral); }
+
+        .card.bg-sky { background-color: var(--color-sky); color: white; }
+        html.dark-mode .card.bg-sky { background-color: var(--color-sky); }
+
+        .card.bg-leaf { background-color: var(--color-leaf); color: var(--color-ink); }
+        html.dark-mode .card.bg-leaf { background-color: var(--color-leaf); color: var(--dark-color-ink); }
+
+        .card.bg-fuchsia { background-color: var(--color-fuchsia); color: white; }
+        html.dark-mode .card.bg-fuchsia { background-color: var(--color-fuchsia); }
+
+        /* Card Content Styling */
+        .card-text-muted { color: var(--color-ink); opacity: 0.5; font-size: 0.875rem; }
+        html.dark-mode .card-text-muted { color: var(--dark-color-text-muted); }
+
+        .card-title { font-size: 1.5rem; font-weight: 600; line-height: 1.25; }
+        @media (min-width: 768px) { .card-title-md { font-size: 1.875rem; } }
+
+        .card-body-text { font-size: 0.875rem; margin-top: 0.5rem; }
+        .card-body-text-white-90 { color: rgba(255,255,255,0.9); }
+
+        /* Play Button */
+        .play-button {
+            width: 2.5rem; height: 2.5rem; border-radius: 9999px;
+            background-color: var(--color-orange-ribbon); color: white;
+            display: flex; align-items: center; justify-content: center;
+        }
+        html.dark-mode .play-button { background-color: var(--dark-color-orange-ribbon); }
+
+        /* Progress Bar */
+        .progress-bar-bg { width: 100%; height: 0.5rem; background-color: var(--color-black-10); border-radius: 9999px; }
+        html.dark-mode .progress-bar-bg { background-color: var(--dark-color-black-10); }
+        .progress-bar-fill { height: 100%; background-color: var(--color-blue-button); border-radius: 9999px; }
+        html.dark-mode .progress-bar-fill { background-color: var(--dark-color-blue-button); }
+
+        /* FOOTER STRIP */
+        .footer-strip-section {
+            position: relative; z-index: 10;
+            padding: 0 1.5rem 0; /* Adjusted padding, removed bottom padding as main-card handles it */
+            width: 100%; /* Ensure it takes full width */
+            box-sizing: border-box;
+            margin-top: 2.5rem; /* Add margin to separate from grid */
+        }
+        @media (min-width: 768px) { .footer-strip-section { padding-left: 2.5rem; padding-right: 2.5rem; } }
+
+        .footer-strip {
+            background-color: white;
+            border-radius: 2rem;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+        }
+        @media (min-width: 640px) { .footer-strip { flex-direction: row; } }
+        html.dark-mode .footer-strip { background-color: var(--dark-color-main-card-bg); }
+
+        .footer-text { color: var(--color-ink); font-weight: 600; font-size: 1.125rem; }
+        html.dark-mode .footer-text { color: var(--dark-color-ink); }
+
+        .footer-buttons { display: flex; gap: 0.75rem; margin-top: 0.75rem; }
+        @media (min-width: 640px) { .footer-buttons { margin-top: 0; } }
+
+        .footer-button-primary {
+            background-color: var(--color-blue-button); color: white;
+            font-weight: 600; padding: 0.75rem 1.25rem; border-radius: 9999px; box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+        }
+        html.dark-mode .footer-button-primary { background-color: var(--dark-color-blue-button); }
+
+        .footer-button-secondary {
+            background-color: var(--color-black-5); color: var(--color-ink);
+            font-weight: 600; padding: 0.75rem 1.25rem; border-radius: 9999px;
+        }
+        html.dark-mode .footer-button-secondary { background-color: var(--dark-color-black-10); color: var(--dark-color-ink); }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+            background-color: var(--color-ink); border-radius: 50%;
+            pointer-events: none; transform: translate(-50%, -50%);
+            transition: transform 0.05s ease-out; z-index: 9999;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+        }
+        html.dark-mode .custom-cursor { background-color: var(--dark-color-ink); }
+        @media (max-width: 768px) {
+            body { cursor: default; }
+            .custom-cursor { display: none; }
+        }
+
+        /* Birthday Notification Banner */
+        #birthdayNotification {
+            position: fixed; top: 0; left: 0; width: 100%; text-align: center;
+            padding: 10px 0; font-family: 'Poppins', sans-serif; font-size: 1.1rem;
+            z-index: 1000; display: none; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            animation: slideDown 0.5s ease-out;
+            background-color: var(--color-birthday-banner-bg);
+            color: var(--color-birthday-banner-text);
+        }
+        html.dark-mode #birthdayNotification {
+            background-color: var(--dark-color-birthday-banner-bg);
+            color: var(--dark-color-birthday-banner-text);
+        }
+        #birthdayNotification.show { display: block; }
+        #birthdayNotification button {
+            background: none; border: none; font-size: 1.2rem; cursor: pointer;
+            position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+            color: var(--color-birthday-banner-text);
+        }
+        html.dark-mode #birthdayNotification button {
+            color: var(--dark-color-birthday-banner-text);
+        }
+        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed; inset: 0; background: var(--color-modal-overlay-bg);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        html.dark-mode .modal-overlay { background: var(--color-modal-overlay-dark); }
+        .modal-overlay.show { opacity: 1; visibility: visible; }
+        .modal-content {
+            background: var(--color-modal-bg); color: var(--color-ink);
+            padding: 1.875rem; border-radius: 0.9375rem; /* 30px, 15px */
+            box-shadow: 0 0.3125rem 1.25rem rgba(0,0,0,0.3); /* 5px, 20px */
+            text-align: center; max-width: 25rem; width: 90%;
+            position: relative; transform: translateY(-1.25rem); opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        html.dark-mode .modal-content {
+            background: var(--color-modal-bg-dark); color: var(--dark-color-ink);
+        }
+        .modal-overlay.show .modal-content { transform: translateY(0); opacity: 1; }
+        .modal-content h3 { font-family: 'Lora', serif; font-size: 1.8rem; margin-top: 0; color: var(--color-blue-button); }
+        html.dark-mode .modal-content h3 { color: var(--color-blue-button); } /* Keep original blue for vibrancy */
+        .modal-content p { font-family: 'Poppins', sans-serif; font-size: 1.1rem; line-height: 1.5; margin-bottom: 1.25rem; }
+        .modal-content ul { list-style: none; padding: 0; margin: 0; text-align: left; }
+        .modal-content ul li {
+            font-family: 'Poppins', sans-serif; font-size: 1rem; padding: 0.3125rem 0;
+            border-bottom: 1px dashed var(--color-black-10);
+        }
+        html.dark-mode .modal-content ul li { border-bottom-color: var(--dark-color-black-10); }
+        .modal-content ul li:last-child { border-bottom: none; }
+        .modal-close-btn {
+            background: none; border: none; font-size: 1.5rem; cursor: pointer;
+            position: absolute; top: 0.625rem; right: 0.9375rem; /* 10px, 15px */
+            color: var(--color-modal-close-btn);
+        }
+        html.dark-mode .modal-close-btn { color: var(--dark-color-modal-close-btn); }
+        .modal-close-btn:hover { color: var(--color-tangerine); }
+
+        /* Custom Message Box (replacing alert()) */
+        #customMessageBox {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--color-message-box-bg);
+            color: var(--color-message-box-text);
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #customMessageBox.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        #customMessageBox.info { background-color: var(--color-message-box-info); }
+        #customMessageBox.success { background-color: var(--color-message-box-success); }
+        #customMessageBox.error { background-color: var(--color-message-box-error); }
+        #customMessageBox i { font-size: 1.2rem; }
+
+        .gemini-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: var(--color-tangerine);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .gemini-button:hover {
+            background-color: #e66a00;
+            transform: translateY(-1px);
+        }
+        .gemini-button:active {
+            transform: translateY(0);
+        }
+        .gemini-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .spinner {
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid #fff;
+            border-radius: 50%;
+            width: 1rem;
+            height: 1rem;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Specific styles for Games Coming Soon page */
+        .games-coming-soon-container { /* Renamed from kanban-board-container */
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1.5rem; /* Adjusted padding for responsiveness */
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center; /* Center align all content within this container */
+        }
+
+        .games-coming-soon-container header {
+            margin-bottom: 2.5rem; /* More space below header */
+        }
+
+        .games-headline {
+            font-family: 'Lora', serif;
+            font-size: 3rem; /* Larger heading */
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--color-ink);
+            line-height: 1.1;
+        }
+        @media (min-width: 768px) {
+            .games-headline { font-size: 4rem; } /* Even larger on desktop */
+        }
+        html.dark-mode .games-headline {
+            color: var(--dark-color-ink);
+        }
+
+        .games-subtext {
+            font-size: 1.125rem;
+            line-height: 1.5;
+            max-width: 700px;
+            color: var(--color-text-ink-70);
+            margin: 0 auto; /* Center the subtext */
+        }
+        html.dark-mode .games-subtext {
+            color: var(--dark-color-text-muted);
+        }
+
+        .games-grid-section {
+            width: 100%;
+            max-width: 72rem; /* Match main card wrapper max-width */
+        }
+
+        .games-grid-container {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+        @media (min-width: 640px) { /* Adjust grid for tablets */
+            .games-grid-container { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (min-width: 1024px) { /* Adjust grid for desktops */
+            .games-grid-container { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+
+        .game-card {
+            background-color: white; /* Default white background */
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Slightly softer shadow */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.5s ease, color 0.5s ease;
+            min-height: 180px; /* Ensure consistent card height */
+        }
+        html.dark-mode .game-card {
+            background-color: var(--dark-color-main-card-bg);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+        html.dark-mode .game-card:hover {
+            box-shadow: 0 12px 24px rgba(0,0,0,0.5);
+        }
+
+        /* Specific game card colors */
+        .game-card.bg-mustard { background-color: var(--color-mustard); color: var(--color-ink); }
+        html.dark-mode .game-card.bg-mustard { background-color: var(--color-mustard); color: var(--dark-color-ink); }
+
+        .game-card.bg-sky { background-color: var(--color-sky); color: white; }
+        html.dark-mode .game-card.bg-sky { background-color: var(--color-sky); }
+
+        .game-card.bg-coral { background-color: var(--color-coral); color: white; }
+        html.dark-mode .game-card.bg-coral { background-color: var(--color-coral); }
+
+        .game-card.bg-fuchsia { background-color: var(--color-fuchsia); color: white; }
+        html.dark-mode .game-card.bg-fuchsia { background-color: var(--color-fuchsia); }
+
+        .game-card.bg-leaf { background-color: var(--color-leaf); color: var(--color-ink); }
+        html.dark-mode .game-card.bg-leaf { background-color: var(--color-leaf); color: var(--dark-color-ink); }
+
+        /* General game card content styling */
+        .game-icon {
+            font-size: 3rem; /* Larger icons */
+            margin-bottom: 0.75rem;
+            color: inherit; /* Inherit color from card background */
+        }
+        .game-card.bg-white .game-icon {
+            color: var(--color-tangerine); /* Specific color for icon on white card */
+        }
+        html.dark-mode .game-card.bg-white .game-icon {
+            color: var(--dark-color-tangerine);
+        }
+
+        .game-title {
+            font-size: 1.6rem; /* Prominent title */
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+            color: inherit;
+        }
+        html.dark-mode .game-card.bg-mustard .game-title,
+        html.dark-mode .game-card.bg-leaf .game-title {
+            color: var(--dark-color-ink); /* Keep dark ink for these cards in dark mode */
+        }
+        html.dark-mode .game-card.bg-sky .game-title,
+        html.dark-mode .game-card.bg-coral .game-title,
+        html.dark-mode .game-card.bg-fuchsia .game-title {
+            color: white; /* Keep white for these cards in dark mode */
+        }
+
+
+        .game-description {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: inherit; /* Inherit color from card background */
+            opacity: 0.8;
+            max-width: 250px; /* Limit description width */
+        }
+        html.dark-mode .game-card.bg-white .game-description {
+            color: var(--dark-color-text-muted); /* Muted text for white card in dark mode */
+        }
+        html.dark-mode .game-card.bg-mustard .game-description,
+        html.dark-mode .game-card.bg-leaf .game-description {
+            color: var(--dark-color-text-muted); /* Muted text for these cards in dark mode */
+        }
+        html.dark-mode .game-card.bg-sky .game-description,
+        html.dark-mode .game-card.bg-coral .game-description,
+        html.dark-mode .game-card.bg-fuchsia .game-description {
+            color: rgba(255,255,255,0.8); /* Slightly less opaque white for descriptions */
+        }
+
+
+        .back-to-main-button {
+            margin-top: 2rem;
+            background-color: var(--color-orange-ribbon);
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: inline-block;
+        }
+
+        .back-to-main-button:hover {
+            background-color: #e66a00;
+            transform: translateY(-1px);
+        }
+        html.dark-mode .back-to-main-button {
+            background-color: var(--dark-color-orange-ribbon);
+        }
+
+        /* Styles for the provided external files, just placeholders for now */
+        /*
+        @import url('styles.css');
+        */
+    </style>
+</head>
+
+<body>
+    <!-- Decorative ribbons -->
+    <div class="ribbon-decoration">
+        <div class="ribbon-1"></div>
+        <div class="ribbon-2"></div>
+        <div class="slash-text">//</div>
+    </div>
+
+    <!-- Fixed action buttons (top right) -->
+    <div class="fixed-buttons-wrapper">
+        <button id="themeToggleBtn" class="fixed-action-btn theme-toggle-btn" aria-pressed="false" aria-label="Toggle light/dark theme">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button id="birthdayInfoBtn" class="fixed-action-btn birthday-info-btn" aria-label="Show upcoming birthdays">
+            <i class="fas fa-birthday-cake"></i>
+        </button>
+        <button id="calendarInfoBtn" class="fixed-action-btn calendar-info-btn" aria-label="Show calendar and holidays">
+            <i class="fas fa-calendar-alt"></i>
+        </button>
+    </div>
+
+    <!-- Birthday Notification Banner -->
+    <div id="birthdayNotification">
+        <span id="birthdayMessage"></span>
+        <button id="closeBirthdayNotification"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- Custom Message Box -->
+    <div id="customMessageBox">
+        <span id="customMessageIcon"></span>
+        <span id="customMessageText"></span>
+    </div>
+
+    <!-- Upcoming Birthdays Modal -->
+    <div id="upcomingBirthdaysModal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="closeUpcomingBirthdaysModal" class="modal-close-btn"><i class="fas fa-times"></i></button>
+            <h3>Upcoming Birthdays</h3>
+            <p id="upcomingBirthdaysContent"></p>
+        </div>
+    </div>
+
+    <!-- Calendar Modal (Coming Soon) -->
+    <div id="calendarModal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="closeCalendarModal" class="modal-close-btn"><i class="fas fa-times"></i></button>
+            <h3>Our Mixed Calendar</h3>
+            <p id="calendarContent">Ethiopian and International holidays coming soon... 🎉</p>
+        <p>This is where Ethiopian and International holidays will be displayed.</p>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="closeAboutModal" class="modal-close-btn"><i class="fas fa-times"></i></button>
+            <h3>About UsRemind</h3>
+            <p>This website was created to help Jay and Mah remember the little things and stay connected through shared memories. It features a custom time counter, daily messages, and upcoming special dates.</p>
+            <p class="text-sm text-ink-60 mt-4">Built with love and code by your AI coding partner.</p>
+        </div>
+    </div>
+
+    <!-- Main card wrapper now contains the Games Coming Soon content -->
+    <div class="main-card-wrapper">
+        <div class="main-card">
+            <!-- soft pattern blobs -->
+            <div class="pattern-blobs">
+                <div class="blob-1"></div>
+                <div class="blob-2"></div>
+                <div class="blob-3"></div>
+                <div class="blob-4"></div>
+            </div>
+
+            <!-- NAV -->
+            <div class="main-nav">
+                <div class="logo-group">
+                    <div class="logo-icon"></div>
+                    <span class="logo-text">UsRemind</span>
+                </div>
+                <nav class="nav-links">
+                    <a href="index.html">Board</a> <!-- Link back to the main page -->
+                    <a href="#" id="navAboutLink">About</a>
+                    <a href="#">Help</a>
+                </nav>
+                <div class="nav-buttons">
+                    <button id="themeToggleBtnMobile" class="fixed-action-btn theme-toggle-btn" aria-pressed="false" aria-label="Toggle light/dark theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="birthdayInfoBtnMobile" class="fixed-action-btn birthday-info-btn" aria-label="Show upcoming birthdays">
+                        <i class="fas fa-birthday-cake"></i>
+                    </button>
+                    <button id="calendarInfoBtnMobile" class="fixed-action-btn calendar-info-btn" aria-label="Show calendar and holidays">
+                        <i class="fas fa-calendar-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Games Coming Soon Content Area -->
+            <div class="games-coming-soon-container">
+                <header class="text-center mb-8">
+                    <h1 class="games-headline">Games Coming Soon! 🎮</h1>
+                    <p class="games-subtext">We're cooking up some fun for you and your loved one. Get ready to play these exciting games!</p>
+                </header>
+
+                <main class="games-grid-section">
+                    <div class="games-grid-container">
+
+                        <!-- Game Card 1: Crossword Puzzles -->
+                        <div class="game-card bg-mustard">
+                            <i class="fas fa-puzzle-piece game-icon"></i>
+                            <h3 class="game-title">Crossword Puzzles</h3>
+                            <p class="game-description">Challenge your mind with daily crosswords designed for two!</p>
+                        </div>
+
+                        <!-- Game Card 2: Memory Games -->
+                        <div class="game-card bg-sky">
+                            <i class="fas fa-brain game-icon"></i>
+                            <h3 class="game-title">Memory Games</h3>
+                            <p class="game-description">Test your recall and shared memories in a fun way.</p>
+                        </div>
+
+                        <!-- Game Card 3: Trivia Challenges -->
+                        <div class="game-card bg-coral">
+                            <i class="fas fa-dice game-icon"></i>
+                            <h3 class="game-title">Trivia Challenges</h3>
+                            <p class="game-description">How well do you know each other? Find out with trivia!</p>
+                        </div>
+
+                        <!-- Game Card 4: Classic Board Games -->
+                        <div class="game-card bg-fuchsia">
+                            <i class="fas fa-chess-board game-icon"></i>
+                            <h3 class="game-title">Classic Board Games</h3>
+                            <p class="game-description">Enjoy digital versions of your favorite board games.</p>
+                        </div>
+
+                        <!-- Game Card 5: Word Scramble -->
+                        <div class="game-card bg-leaf">
+                            <i class="fas fa-random game-icon"></i>
+                            <h3 class="game-title">Word Scramble</h3>
+                            <p class="game-description">Unscramble letters to find hidden words together.</p>
+                        </div>
+
+                        <!-- Game Card 6: Coming Soon Placeholder -->
+                        <div class="game-card bg-white">
+                            <i class="fas fa-hourglass-half game-icon text-tangerine"></i>
+                            <h3 class="game-title">More Games!</h3>
+                            <p class="game-description text-ink-60">Many more exciting games are in development!</p>
+                        </div>
+
+                    </div>
+                </main>
+
+                <footer class="mt-8 text-center">
+                    <a href="index.html" class="back-to-main-button">Go Back to Main Page</a>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor Element -->
+    <div class="custom-cursor"></div>
+
+    <!-- JavaScript to handle dark mode, modals, and other global functionality -->
+    <script>
+        // --- CONFIGURATION ---
+        // START OF BIRTHDAYS LIST (Month is 0-indexed: Jan=0, Feb=1, ..., Dec=11)
+        const birthdays = [
+            { name: "Beamlak Samuel", month: 0, day: 1 }, // Jan 1
+            { name: "Addae Madzimoyo", month: 0, day: 7 }, // Jan 7
+            { name: "Tsionawit Abera Desta", month: 0, day: 15 }, // Jan 15
+            { name: "Serukyas Tewahido", month: 1, day: 1 }, // Feb 1
+            { name: "Mathewos Ayelework", month: 1, day: 10 }, // Feb 10
+            { name: "Daniela Pirela-Manares", month: 1, day: 12 }, // Feb 12
+            { name: "Meseret Kiros Alema", month: 1, day: 16 }, // Feb 16
+            { name: "Biniyam (Jay's)", month: 1, day: 19 }, // Feb 19 (Yek 12)
+            { name: "Marcon (Jay's)", month: 1, day: 21 }, // Feb 21
+            { name: "Leul (Jay's)", month: 1, day: 28 }, // Feb 28
+            { name: "Abyssinia Zewdie", month: 2, day: 5 }, // March 5
+            { name: "Neveah Adams", month: 2, day: 7 }, // March 7
+            { name: "Addishiwot Belew Dagnew", month: 2, day: 11 }, // March 11
+            { name: "Fikir Yohannes", month: 2, day: 15 }, // March 15
+            { name: "Beamlak Henok", month: 2, day: 18 }, // March 18
+            { name: "David Minda", month: 2, day: 19 }, // March 19
+            { name: "Senay (Jay's)", month: 2, day: 19 }, // March 19
+            { name: "Yeabsira Tamirat", month: 2, day: 23 }, // March 23
+            { name: "Sammy Senpai", month: 2, day: 28 }, // March 28
+            { name: "Kimberly Hoang", month: 3, day: 10 }, // April 10
+            { name: "Eyerusalem Assefa Shewago", month: 3, day: 13 }, // April 13
+            { name: "Betselot Wogderes", month: 3, day: 20 }, // April 20
+            { name: "Essey Araya", month: 3, day: 30 }, // April 30
+            { name: "Beamlaksra Fasil", month: 4, day: 6 }, // May 6
+            { name: "Bemnet Zekarias", month: 4, day: 14 }, // May 14
+            { name: "Woinshet (Jay's)", month: 4, day: 21 }, // May 21
+            { name: "Claudia Wanjira", month: 4, day: 30 }, // May 30
+            { name: "Basleal (Jay's)", month: 5, day: 4 }, // June 4
+            { name: "Solyana Tamirat", month: 5, day: 7 }, // June 7
+            { name: "Betsinat Wogderes", month: 5, day: 18 }, // June 18
+            { name: "Nahom Mesfin", month: 5, day: 20 }, // June 20
+            { name: "Kamuskay Kamara", month: 5, day: 22 }, // June 22
+            { name: "MOM", month: 5, day: 23 }, // June 23
+            { name: "Abenezer (Jay's)", month: 5, day: 23 }, // June 23
+            { name: "Biruktawit Yaze", month: 5, day: 26 }, // June 26
+            { name: "Rekik Chernet", month: 6, day: 2 }, // July 2
+            { name: "Hermona Desta", month: 6, day: 4 }, // July 4
+            { name: "Minas (Jay's)", month: 6, day: 4 }, // July 4
+            { name: "Lidya Lakew", month: 6, day: 11 }, // July 11
+            { name: "Saratou Bako Bagassa", month: 6, day: 13 }, // July 13
+            { name: "Dr. Carmen Lynas", month: 6, day: 26 }, // July 26
+            { name: "Tsegi (Jay's)", month: 7, day: 1 }, // Aug 1
+            { name: "Biruk Sintayehu Tolla", month: 7, day: 3 }, // Aug 3
+            { name: "Providence Suenge", month: 7, day: 10 }, // Aug 10
+            { name: "Melake Birhanu Negus", month: 7, day: 15 }, // Aug 15
+            { name: "Yafet", month: 7, day: 18 }, // Aug 18
+            { name: "Alazar (Jay's)", month: 8, day: 3 }, // Sep 3
+            { name: "Yididya Merete", month: 8, day: 10 }, // Sep 10
+            { name: "Liya Gebru", month: 8, day: 15 }, // Sep 15
+            { name: "Micheal Adebusoye", month: 8, day: 20 }, // Sep 20
+            { name: "Tesfaye Kefene", month: 8, day: 21 }, // Sep 21
+            { name: "Arphaxad Nyabuto", month: 8, day: 25 }, // Sep 25
+            { name: "Amar Asfaw Dilala", month: 8, day: 27 }, // Sep 27
+            { name: "Nahom Ketsela", month: 8, day: 28 }, // Sep 28
+            { name: "Osman Jalloh", month: 9, day: 2 }, // Oct 2
+            { name: "Blen Tewodros Gulilat", month: 9, day: 10 }, // Oct 10
+            { name: "Bateal Zimna", month: 9, day: 11 }, // Oct 11
+            { name: "Beti (Jay's)", month: 9, day: 11 }, // Oct 11
+            { name: "Daniela Villanueva-Tellez", month: 9, day: 16 }, // Oct 16
+            { name: "Amogelang Dlamini", month: 9, day: 23 }, // Oct 23
+            { name: "Pierre Diatta", month: 9, day: 28 }, // Oct 28
+            { name: "Perle Fayida", month: 10, day: 4 }, // Nov 4
+            { name: "Solome Misganaw", month: 10, day: 5 }, // Nov 5
+            { name: "Berhane Wheeler", month: 10, day: 14 }, // Nov 14
+            { name: "Esterline Charles", month: 10, day: 27 }, // Nov 27
+            { name: "Gertrude Mbewe", month: 10, day: 28 }, // Nov 28
+            { name: "Betelihem Befirdu", month: 10, day: 30 }, // Nov 30
+            { name: "Nika Davenport", month: 10, day: 30 }, // Nov 30
+            { name: "Hizkeal Yeshitla", month: 11, day: 4 }, // Dec 4
+            { name: "Meron Yeshitla", month: 11, day: 4 }, // Dec 4
+            { name: "Sami (Jay's)", month: 11, day: 4 }, // Dec 4
+            { name: "Mam-mary SarrFox", month: 11, day: 5 }, // Dec 5
+            { name: "Sara Naizghi", month: 11, day: 13 }, // Dec 13
+            { name: "Naod Ksmu", month: 11, day: 23 }, // Dec 23
+            { name: "Liya Belay Tessema", month: 11, day: 30 }, // Dec 30
+            { name: "Laura Warren", month: 11, day: 31 } // Dec 31
+        ];
+        // END OF BIRTHDAYS LIST
+
+        // --- UTILITY FUNCTIONS ---
+        /**
+         * Displays a custom message box at the bottom of the screen.
+         * @param {string} message The message to display.
+         * @param {string} type The type of message ('info', 'success', 'error'). Affects background color and icon.
+         */
+        function showMessage(message, type = 'info') {
+            const msgBox = document.getElementById('customMessageBox');
+            const msgText = document.getElementById('customMessageText');
+            const msgIcon = document.getElementById('customMessageIcon');
+
+            msgText.textContent = message;
+            msgBox.className = ''; // Clear existing classes
+            msgBox.classList.add(type); // Add type class for styling
+
+            // Set icon based on message type
+            let iconClass = '';
+            if (type === 'success') {
+                iconClass = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                iconClass = 'fas fa-exclamation-circle';
+            } else {
+                iconClass = 'fas fa-info-circle';
+            }
+            msgIcon.innerHTML = `<i class="${iconClass}"></i>`;
+
+
+            msgBox.classList.add('show');
+
+            // Hide the message after 3 seconds
+            setTimeout(() => {
+                msgBox.classList.remove('show');
+            }, 3000);
+        }
+
+        function checkBirthdayToday() {
+            const today = new Date();
+            const currentMonth = today.getMonth();
+            const currentDay = today.getDate();
+            let birthdayFound = false;
+            let birthdayNames = [];
+            for (const person of birthdays) {
+                if (person.month === currentMonth && person.day === currentDay) {
+                    birthdayNames.push(person.name);
+                    birthdayFound = true;
+                }
+            }
+            const birthdayNotification = document.getElementById('birthdayNotification');
+            const birthdayMessageSpan = document.getElementById('birthdayMessage');
+            if (birthdayFound) {
+                birthdayMessageSpan.textContent = `Happy Birthday, ${birthdayNames.join(' and ')}! 🎂`;
+                birthdayNotification.classList.add('show');
+            } else {
+                birthdayNotification.classList.remove('show');
+            }
+        }
+
+        function getUpcomingBirthdays() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const thirtyDaysFromNow = new Date();
+            thirtyDaysFromNow.setDate(today.getDate() + 30);
+            thirtyDaysFromNow.setHours(23, 59, 59, 999);
+            const upcomingList = [];
+            for (const person of birthdays) {
+                let nextBirthday = new Date(today.getFullYear(), person.month, person.day);
+                if (nextBirthday.getTime() < today.getTime()) {
+                    // If birthday has passed this year, check for next year
+                    nextBirthday.setFullYear(today.getFullYear() + 1);
+                }
+                if (nextBirthday.getTime() >= today.getTime() && nextBirthday.getTime() <= thirtyDaysFromNow.getTime()) {
+                    upcomingList.push({ name: person.name, date: nextBirthday });
+                }
+            }
+            upcomingList.sort((a, b) => a.date.getTime() - b.date.getTime()); // Sort by date
+            if (upcomingList.length === 0) {
+                return "<p>No birthdays coming up soon! You can relax. 😊</p>";
+            } else {
+                let htmlList = "<ul>";
+                const options = { month: 'long', day: 'numeric' };
+                for (const item of upcomingList) {
+                    htmlList += `<li><strong>${item.name}</strong>: ${item.date.toLocaleDateString(undefined, options)}</li>`;
+                }
+                htmlList += "</ul>";
+                return htmlList;
+            }
+        }
+
+        function checkUpcomingBirthdayAlert() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const thirtyDaysFromNow = new Date();
+            thirtyDaysFromNow.setDate(today.getDate() + 30);
+            thirtyDaysFromNow.setHours(23, 59, 59, 999);
+            let hasUpcoming = false;
+            for (const person of birthdays) {
+                let nextBirthday = new Date(today.getFullYear(), person.month, person.day);
+                if (nextBirthday.getTime() < today.getTime()) {
+                    nextBirthday.setFullYear(today.getFullYear() + 1);
+                }
+                if (nextBirthday.getTime() >= today.getTime() && nextBirthday.getTime() <= thirtyDaysFromNow.getTime()) {
+                    hasUpcoming = true;
+                    break;
+                }
+            }
+            const birthdayInfoBtn = document.getElementById('birthdayInfoBtn');
+            const birthdayInfoBtnMobile = document.getElementById('birthdayInfoBtnMobile'); // Get mobile button too
+            if (birthdayInfoBtn) {
+                if (hasUpcoming) {
+                    birthdayInfoBtn.classList.add('alert');
+                } else {
+                    birthdayInfoBtn.classList.remove('alert');
+                }
+            }
+            if (birthdayInfoBtnMobile) { // Apply alert class to mobile button as well
+                if (hasUpcoming) {
+                    birthdayInfoBtnMobile.classList.add('alert');
+                } else {
+                    birthdayInfoBtnMobile.classList.remove('alert');
+                }
+            }
+        }
+
+        function showUpcomingBirthdays() {
+            const upcomingBirthdaysModal = document.getElementById('upcomingBirthdaysModal');
+            const upcomingBirthdaysContent = document.getElementById('upcomingBirthdaysContent');
+            upcomingBirthdaysContent.innerHTML = getUpcomingBirthdays();
+            upcomingBirthdaysModal.classList.add('show');
+        }
+
+        function showCalendarModal() {
+            const calendarModal = document.getElementById('calendarModal');
+            const calendarContent = document.getElementById('calendarContent');
+            calendarContent.textContent = "Ethiopian and International holidays coming soon... 🎉";
+            calendarModal.classList.add('show');
+        }
+
+        function showAboutModal() {
+            const aboutModal = document.getElementById('aboutModal');
+            aboutModal.classList.add('show');
+        }
+
+        /* Removed showMemoriesModal and showHelpModal from here as they are not needed on this page */
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark-mode'); /* Apply to html element */
+            const isDark = document.documentElement.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+            // Update desktop theme toggle button
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            if (themeToggleBtn) {
+                const isDark = document.documentElement.classList.contains('dark-mode');
+                themeToggleBtn.setAttribute('aria-pressed', isDark);
+                themeToggleBtn.querySelector('i').className = `fas ${isDark ? 'fa-sun' : 'fa-moon'}`;
+            }
+
+            // Update mobile theme toggle button
+            const themeToggleBtnMobile = document.getElementById('themeToggleBtnMobile');
+            if (themeToggleBtnMobile) {
+                const isDark = document.documentElement.classList.contains('dark-mode');
+                themeToggleBtnMobile.setAttribute('aria-pressed', isDark);
+                themeToggleBtnMobile.querySelector('i').className = `fas ${isDark ? 'fa-sun' : 'fa-moon'}`;
+            }
+        }
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Apply saved theme on load
+            const storedTheme = localStorage.getItem('theme');
+            if (storedTheme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+            }
+
+            // Theme toggle button listeners (desktop and mobile)
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const themeToggleBtnMobile = document.getElementById('themeToggleBtnMobile');
+
+            if (themeToggleBtn) {
+                const isDark = document.documentElement.classList.contains('dark-mode');
+                themeToggleBtn.setAttribute('aria-pressed', isDark);
+                themeToggleBtn.querySelector('i').className = `fas ${isDark ? 'fa-sun' : 'fa-moon'}`;
+                themeToggleBtn.addEventListener('click', toggleTheme);
+            }
+            if (themeToggleBtnMobile) {
+                const isDark = document.documentElement.classList.contains('dark-mode');
+                themeToggleBtnMobile.setAttribute('aria-pressed', isDark);
+                themeToggleBtnMobile.querySelector('i').className = `fas ${isDark ? 'fa-sun' : 'fa-moon'}`;
+                themeToggleBtnMobile.addEventListener('click', toggleTheme);
+            }
+        
+            // Birthday and Calendar features initialization
+            checkBirthdayToday();
+            checkUpcomingBirthdayAlert();
+
+            const closeBirthdayNotificationBtn = document.getElementById('closeBirthdayNotification');
+            if (closeBirthdayNotificationBtn) {
+                closeBirthdayNotificationBtn.addEventListener('click', () => {
+                    document.getElementById('birthdayNotification').classList.remove('show');
+                });
+            }
+
+            // Birthday info button listeners (desktop and mobile)
+            const birthdayInfoBtn = document.getElementById('birthdayInfoBtn');
+            const birthdayInfoBtnMobile = document.getElementById('birthdayInfoBtnMobile');
+
+            if (birthdayInfoBtn) {
+                birthdayInfoBtn.addEventListener('click', showUpcomingBirthdays);
+            }
+            if (birthdayInfoBtnMobile) {
+                birthdayInfoBtnMobile.addEventListener('click', showUpcomingBirthdays);
+            }
+
+            const closeUpcomingBirthdaysModalBtn = document.getElementById('closeUpcomingBirthdaysModal');
+            const upcomingBirthdaysModal = document.getElementById('upcomingBirthdaysModal');
+            if (closeUpcomingBirthdaysModalBtn) {
+                closeUpcomingBirthdaysModalBtn.addEventListener('click', () => {
+                    upcomingBirthdaysModal.classList.remove('show');
+                });
+            }
+            if (upcomingBirthdaysModal) {
+                upcomingBirthdaysModal.addEventListener('click', (event) => {
+                    if (event.target === upcomingBirthdaysModal) { // Only close if clicking on the overlay itself
+                        upcomingBirthdaysModal.classList.remove('show');
+                    }
+                });
+            }
+
+            // Calendar info button listeners (desktop and mobile)
+            const calendarInfoBtn = document.getElementById('calendarInfoBtn');
+            const calendarInfoBtnMobile = document.getElementById('calendarInfoBtnMobile');
+
+            if (calendarInfoBtn) {
+                calendarInfoBtn.addEventListener('click', showCalendarModal);
+            }
+            if (calendarInfoBtnMobile) {
+                calendarInfoBtnMobile.addEventListener('click', showCalendarModal);
+            }
+
+            const closeCalendarModalBtn = document.getElementById('closeCalendarModal');
+            const calendarModal = document.getElementById('calendarModal');
+            if (closeCalendarModalBtn) {
+                closeCalendarModalBtn.addEventListener('click', () => {
+                    calendarModal.classList.remove('show');
+                });
+            }
+            if (calendarModal) {
+                calendarModal.addEventListener('click', (event) => {
+                    if (event.target === calendarModal) { // Only close if clicking on the overlay itself
+                        calendarModal.classList.remove('show');
+                    }
+                });
+            }
+
+            // About button functionality (footer and nav link)
+            const aboutButton = document.getElementById('aboutButton');
+            if (aboutButton) {
+                aboutButton.addEventListener('click', showAboutModal);
+            }
+            const navAboutLink = document.getElementById('navAboutLink');
+            if (navAboutLink) {
+                navAboutLink.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent default link behavior
+                    showAboutModal();
+                });
+            }
+            const closeAboutModal = document.getElementById('closeAboutModal');
+            if (closeAboutModal) {
+                closeAboutModal.addEventListener('click', () => {
+                    document.getElementById('aboutModal').classList.remove('show');
+                });
+            }
+            const aboutModal = document.getElementById('aboutModal');
+            if (aboutModal) {
+                aboutModal.addEventListener('click', (event) => {
+                    if (event.target === aboutModal) { // Only close if clicking on the overlay itself
+                        aboutModal.classList.remove('show');
+                    }
+                });
+            }
+        });
+    </script>
+    <!-- Placeholder for external script.js -->
+    <script>
+        // Your script.js content would go here for Kanban functionality.
+        // For now, it's just a placeholder to acknowledge its existence.
+        console.log("Games Coming Soon script loaded (placeholder).");
+    </script>
+</body>
+</html>
 

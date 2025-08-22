@@ -48,7 +48,7 @@
             /* Specific feature colors (adjusted for dark mode) */
             --color-birthday-banner-bg: #FFD700;
             --color-birthday-banner-text: #8B4513;
-            --color-modal-overlay-bg: rgba(0, 0, 0, 0.6);
+            --color-modal-overlay-bg: rgba(0, 0, 0, 0.4); /* Adjusted for less dimness */
             --color-modal-bg: #ffffff;
             --color-modal-close-btn: #888;
             --color-cursor: #2B2B2F; /* Ink color for cursor */
@@ -56,7 +56,7 @@
 
             --dark-color-birthday-banner-bg: #B8860B; /* Darker gold for dark mode */
             --dark-color-birthday-banner-text: #FFD700; /* Lighter text for dark mode */
-            --color-modal-overlay-dark: rgba(0, 0, 0, 0.8);
+            --color-modal-overlay-dark: rgba(0, 0, 0, 0.5); /* Adjusted for less dimness in dark mode */
             --color-modal-bg-dark: #2A2A2A;
             --dark-color-modal-close-btn: #AAA;
             --dark-color-tangerine: #FF7A00; /* Keep tangerine for alert in dark mode */
@@ -385,12 +385,13 @@
             height: 90vh; /* Take up 90% of viewport height */
             max-width: 1200px; /* Optional: limit max size on very large screens */
             max-height: 800px; /* Optional: limit max height */
-            z-index: 1001; /* Higher than fixed buttons, lower than modals */
+            z-index: 1002; /* Higher than fixed buttons, lower than modals */
             padding: 2rem; /* More padding when expanded */
             overflow-y: auto; /* Allow scrolling if content overflows */
             cursor: zoom-out; /* Indicate it's clickable to close */
             box-shadow: 0 25px 50px rgba(0,0,0,0.4); /* More prominent shadow */
             border: 2px solid var(--color-blue-button); /* Add a border for emphasis */
+            filter: brightness(100%); /* Ensure full brightness when expanded */
         }
 
         html.dark-mode .card.is-expanded {
@@ -428,7 +429,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+            background-color: var(--color-modal-overlay-bg); /* Use the new variable for backdrop opacity */
             z-index: 1000; /* Below expanded card, above other content */
             opacity: 0;
             visibility: hidden;
@@ -1261,7 +1262,7 @@
             const birthdayNotification = document.getElementById('birthdayNotification');
             const birthdayMessageSpan = document.getElementById('birthdayMessage');
             if (birthdayFound) {
-                birthdayMessageSpan.textContent = `Happy Birthday, ${birthdayNames.join(' and ')}! 🎂`;
+                birthdayMessageSpan.textContent = `Happy Birthday, ${birthdayNames.join(' and ')}! �`;
                 birthdayNotification.classList.add('show');
             } else {
                 birthdayNotification.classList.remove('show');
@@ -1318,20 +1319,20 @@
             }
             const birthdayInfoBtn = document.getElementById('birthdayInfoBtn');
             const birthdayInfoBtnMobile = document.getElementById('birthdayInfoBtnMobile'); // Get mobile button too
-            if (birthdayInfoBtn) {
-                if (hasUpcoming) {
-                    birthdayInfoBtn.classList.add('alert');
-                } else {
-                    birthdayInfoBtn.classList.remove('alert');
+
+            // Consistent update for both desktop and mobile buttons
+            const updateBirthdayButton = (btn) => {
+                if (btn) {
+                    if (hasUpcoming) {
+                        btn.classList.add('alert');
+                    } else {
+                        btn.classList.remove('alert');
+                    }
                 }
-            }
-            if (birthdayInfoBtnMobile) { // Apply alert class to mobile button as well
-                if (hasUpcoming) {
-                    birthdayInfoBtnMobile.classList.add('alert');
-                } else {
-                    birthdayInfoBtnMobile.classList.remove('alert');
-                }
-            }
+            };
+
+            updateBirthdayButton(birthdayInfoBtn);
+            updateBirthdayButton(birthdayInfoBtnMobile);
         }
 
         function showUpcomingBirthdays() {
@@ -1368,20 +1369,17 @@
             const isDark = document.documentElement.classList.contains('dark-mode');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
 
-            // Update desktop theme toggle button
-            const themeToggleBtn = document.getElementById('themeToggleBtn');
-            if (themeToggleBtn) {
-                themeToggleBtn.setAttribute('aria-pressed', isDark);
-                themeToggleBtn.querySelector('i').className = `fas ${isDark ? 'fa-sun' : 'fa-moon'}`;
-            }
+            // Function to update button icon and aria-pressed state
+            const updateThemeButton = (btn) => {
+                if (btn) {
+                    btn.setAttribute('aria-pressed', isDark);
+                    btn.querySelector('i').className = `fas ${isDark ? 'fa-sun' : 'fa-moon'}`;
+                }
+            };
 
-            // Update mobile theme toggle button
-            const themeToggleBtnMobile = document.getElementById('themeToggleBtnMobile');
-            if (themeToggleBtnMobile) {
-                const isDark = document.documentElement.classList.contains('dark-mode');
-                themeToggleBtnMobile.setAttribute('aria-pressed', isDark);
-                themeToggleBtnMobile.querySelector('i').className = `fas ${isDark ? 'fa-sun' : 'fa-moon'}`;
-            }
+            // Update desktop and mobile theme toggle buttons
+            updateThemeButton(document.getElementById('themeToggleBtn'));
+            updateThemeButton(document.getElementById('themeToggleBtnMobile'));
         }
 
         // --- CARD EXPANSION LOGIC ---
@@ -1456,18 +1454,17 @@
             const themeToggleBtn = document.getElementById('themeToggleBtn');
             const themeToggleBtnMobile = document.getElementById('themeToggleBtnMobile');
 
-            if (themeToggleBtn) {
-                const isDark = document.documentElement.classList.contains('dark-mode');
-                themeToggleBtn.setAttribute('aria-pressed', isDark);
-                themeToggleBtn.querySelector('i').className = `fas ${isDark ? 'fa-sun' : 'fa-moon'}`;
-                themeToggleBtn.addEventListener('click', toggleTheme);
-            }
-            if (themeToggleBtnMobile) {
-                const isDark = document.documentElement.classList.contains('dark-mode');
-                themeToggleBtnMobile.setAttribute('aria-pressed', isDark);
-                themeToggleBtnMobile.querySelector('i').className = `fas ${isDark ? 'fa-sun' : 'fa-moon'}`;
-                themeToggleBtnMobile.addEventListener('click', toggleTheme);
-            }
+            // Initialize theme toggle button states
+            const initializeThemeButton = (btn) => {
+                if (btn) {
+                    const isDark = document.documentElement.classList.contains('dark-mode');
+                    btn.setAttribute('aria-pressed', isDark);
+                    btn.querySelector('i').className = `fas ${isDark ? 'fa-sun' : 'fa-moon'}`;
+                    btn.addEventListener('click', toggleTheme);
+                }
+            };
+            initializeThemeButton(themeToggleBtn);
+            initializeThemeButton(themeToggleBtnMobile);
 
             // Birthday and Calendar features initialization
             checkBirthdayToday();
@@ -1696,3 +1693,4 @@
     </script>
 </body>
 </html>
+�

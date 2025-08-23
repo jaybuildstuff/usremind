@@ -48,7 +48,7 @@
             /* Specific feature colors (adjusted for dark mode) */
             --color-birthday-banner-bg: #FFD700;
             --color-birthday-banner-text: #8B4513;
-            --color-modal-overlay-bg: rgba(0, 0, 0, 0.4); /* Adjusted for less dimness */
+            --color-modal-overlay-bg: rgba(0, 0, 0, 0.02); /* Even further reduced for maximum brightness */
             --color-modal-bg: #ffffff;
             --color-modal-close-btn: #888;
             --color-cursor: #2B2B2F; /* Ink color for cursor */
@@ -56,7 +56,7 @@
 
             --dark-color-birthday-banner-bg: #B8860B; /* Darker gold for dark mode */
             --dark-color-birthday-banner-text: #FFD700; /* Lighter text for dark mode */
-            --color-modal-overlay-dark: rgba(0, 0, 0, 0.5); /* Adjusted for less dimness in dark mode */
+            --color-modal-overlay-dark: rgba(0, 0, 0, 0.05); /* Even further reduced for maximum brightness in dark mode */
             --color-modal-bg-dark: #2A2A2A;
             --dark-color-modal-close-btn: #AAA;
             --dark-color-tangerine: #FF7A00; /* Keep tangerine for alert in dark mode */
@@ -113,6 +113,7 @@
             box-sizing: border-box;
             transition: background-color 0.5s ease, color 0.5s ease;
             cursor: none; /* Hide default cursor */
+            overflow: hidden; /* CRITICAL: Disable native body scrolling for smooth scroll */
         }
 
         /* Gradient animation keyframes */
@@ -143,6 +144,7 @@
             position: absolute;
             background-color: var(--color-orange-ribbon);
             border-radius: 9999px;
+            will-change: transform; /* Added for performance */
         }
         .ribbon-decoration .ribbon-1 {
             left: -6rem; top: 25%; transform: rotate(-25deg);
@@ -163,39 +165,41 @@
             color: var(--dark-color-text-white-80);
         }
 
-        /* Main card container */
+        /* Main card container (now a transparent wrapper) */
         .main-card-wrapper {
             position: relative;
             max-width: 72rem; /* 1152px */
             width: 100%; /* Take full width to center content */
             margin-left: auto;
             margin-right: auto;
-            padding: 0; /* Removed horizontal padding from here, now handled by body */
+            padding: 0;
             box-sizing: border-box;
         }
         @media (min-width: 768px) {
-            .main-card-wrapper { padding: 0; } /* Ensure no padding on larger screens either */
+            .main-card-wrapper { padding: 0; }
         }
 
-        /* This is the main visual container that now wraps everything */
+        /* The main-card div now acts as a transparent wrapper for the new sections */
         .main-card {
-            margin-top: 0; /* Removed margin-top as it's now the primary container */
-            background-color: var(--color-cream);
-            border-radius: 2rem; /* 32px */
-            box-shadow: 0 12px 24px rgba(0,0,0,0.08); /* soft shadow */
-            overflow: hidden;
+            margin-top: 0;
+            background-color: transparent; /* Removed cream background */
+            border-radius: 0; /* Removed border-radius */
+            box-shadow: none; /* Removed shadow */
+            overflow: visible; /* Allow content to overflow if needed, or keep hidden if blobs are still relative to it */
             position: relative;
             z-index: 10;
-            transition: background-color 0.5s ease, box-shadow 0.5s ease;
-            /* Padding for the entire content block */
-            padding-bottom: 2.5rem; /* Add padding to the bottom of the main card */
+            transition: none; /* No transition on this wrapper */
+            padding-bottom: 0; /* Removed padding */
+            display: flex; /* Use flex to stack the new sections */
+            flex-direction: column;
+            gap: 2.5rem; /* Gap between the two new sections */
         }
         html.dark-mode .main-card {
-            background-color: var(--dark-color-main-card-bg);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.4); /* soft-dark shadow */
+            background-color: transparent;
+            box-shadow: none;
         }
 
-        /* Soft pattern blobs */
+        /* Soft pattern blobs - still positioned relative to .main-card */
         .pattern-blobs {
             pointer-events: none;
             position: absolute;
@@ -205,6 +209,7 @@
             position: absolute;
             background-color: var(--color-white-pattern-blob);
             border-radius: 9999px; /* full rounded for blobs */
+            will-change: transform; /* Added for performance */
         }
         .pattern-blobs .blob-1 { left: -2.5rem; top: 1.5rem; width: 11rem; height: 11rem; border-radius: 36% 64% 57% 43%/57% 43% 36% 64%; }
         .pattern-blobs .blob-2 { right: 1.5rem; top: 1.5rem; width: 9rem; height: 9rem; background-color: var(--color-white-pattern-blob-30); border-radius: 52% 48% 40% 60%/48% 60% 40% 52%; }
@@ -213,6 +218,23 @@
         html.dark-mode .pattern-blobs > div {
             background-color: var(--dark-color-white-pattern-blob);
         }
+
+        /* New container for sections to give them individual cream backgrounds and shadows */
+        .section-container {
+            background-color: var(--color-cream);
+            border-radius: 2rem; /* Apply rounded corners to each section */
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08); /* Apply shadow to each section */
+            position: relative; /* For any internal positioning */
+            z-index: 1; /* Ensure these sections are above the body background but below modals/expanded cards */
+            transition: background-color 0.5s ease, box-shadow 0.5s ease;
+            padding-bottom: 2.5rem; /* Add padding to the bottom of each section */
+        }
+        /* Dark mode for new section containers */
+        html.dark-mode .section-container {
+            background-color: var(--dark-color-main-card-bg);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+        }
+
 
         /* NAV */
         .main-nav {
@@ -268,11 +290,12 @@
                 margin-left: 0.5rem; /* Add some spacing */
                 margin-right: 0.5rem;
             }
+            /* The .nav-buttons container is now empty, but its styles still apply if needed */
             .nav-buttons {
-                display: flex;
-                flex-wrap: wrap; /* Allow buttons to wrap */
-                justify-content: flex-end; /* Align to the right */
-                gap: 0.5rem; /* Smaller gap on mobile */
+                display: flex; /* Ensure it still acts as a flex container for the moved buttons */
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                gap: 0.5rem;
             }
             /* Adjust overall nav on small screens if needed */
             .main-nav {
@@ -280,7 +303,7 @@
                 justify-content: space-between;
                 padding-bottom: 0.5rem; /* Add some padding below if buttons wrap */
             }
-            /* Move fixed buttons to inside the nav-buttons container for mobile */
+            /* The fixed action buttons will now flow with the content when static */
             .theme-toggle-btn, .birthday-info-btn, .calendar-info-btn {
                 position: relative; /* Make them relative inside flex container */
                 top: auto;
@@ -361,14 +384,17 @@
             padding: 1.5rem;
             box-shadow: 0 12px 24px rgba(0,0,0,0.08);
             position: relative; overflow: hidden;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.5s ease, color 0.5s ease; /* Added transform to transition */
+            /* NEW: Initial scale for zoom effect */
+            transform: scale(0.98);
+            /* UPDATED: Smoother transition for transform with cubic-bezier */
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease, background-color 0.5s ease, color 0.5s ease;
             cursor: pointer; /* Indicate clickable */
         }
         html.dark-mode .card { box-shadow: 0 12px 24px rgba(0,0,0,0.4); }
 
         /* Hover effect for all cards */
         .card:hover {
-            transform: translateY(-5px); /* Lifts the card slightly */
+            transform: translateY(-5px) scale(1); /* Lifts the card slightly and ensures full scale on hover */
             box-shadow: 0 16px 32px rgba(0,0,0,0.15); /* More pronounced shadow on hover */
         }
         html.dark-mode .card:hover {
@@ -377,15 +403,16 @@
 
         /* New styles for expanded card */
         .card.is-expanded {
+            /* These styles are now primarily set by JS for consistency, but kept here as fallback/reference */
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(1); /* Ensure it's not scaled down initially */
+            transform: translate(-50%, -50%) scale(1); 
             width: 90vw; /* Take up 90% of viewport width */
             height: 90vh; /* Take up 90% of viewport height */
             max-width: 1200px; /* Optional: limit max size on very large screens */
             max-height: 800px; /* Optional: limit max height */
-            z-index: 1002; /* Higher than fixed buttons, lower than modals */
+            z-index: 2001; /* CRITICAL: Higher than backdrop and modals */
             padding: 2rem; /* More padding when expanded */
             overflow-y: auto; /* Allow scrolling if content overflows */
             cursor: zoom-out; /* Indicate it's clickable to close */
@@ -444,6 +471,16 @@
         /* Disable scrolling on body when card is expanded */
         body.no-scroll {
             overflow: hidden;
+        }
+
+        /* Removed: This rule was hiding the footer when a card was expanded */
+        /* body.no-scroll .footer-strip-section { display: none; } */
+
+        /* Wrapper for smooth scrolling content */
+        .smooth-scroll-wrapper {
+            width: 100%;
+            will-change: transform; /* Performance hint for browser */
+            /* Removed transition here as JS will handle animation */
         }
 
 
@@ -759,7 +796,7 @@
     </div>
 
     <!-- Fixed action buttons (top right) -->
-    <!-- For mobile, these buttons are now part of the nav-buttons group for better layout -->
+    <!-- These are the primary buttons that will adapt for mobile -->
     <div class="fixed-buttons-wrapper">
         <button id="themeToggleBtn" class="fixed-action-btn theme-toggle-btn" aria-pressed="false" aria-label="Toggle light/dark theme">
             <i class="fas fa-moon"></i>
@@ -840,131 +877,127 @@
         </div>
     </div>
 
-
-    <!-- Main card wrapper now contains both hero and main-card -->
-    <div class="main-card-wrapper">
-        <!-- The main-card div now wraps everything that should have the cream background -->
-        <div class="main-card">
-            <!-- soft pattern blobs -->
-            <div class="pattern-blobs">
-                <div class="blob-1"></div>
-                <div class="blob-2"></div>
-                <div class="blob-3"></div>
-                <div class="blob-4"></div>
-            </div>
-
-            <!-- NAV is now inside main-card -->
-            <div class="main-nav">
-                <div class="logo-group">
-                    <div class="logo-icon"></div>
-                    <span class="logo-text">UsRemind</span>
+    <!-- This is the main container whose transform will be animated for smooth scrolling -->
+    <div id="smoothScrollContainer" class="smooth-scroll-wrapper">
+        <!-- Main card wrapper now contains both hero and main-card -->
+        <div class="main-card-wrapper">
+            <!-- The main-card div now acts as a transparent wrapper for the new sections -->
+            <div class="main-card">
+                <!-- soft pattern blobs (still positioned relative to main-card) -->
+                <div class="pattern-blobs">
+                    <div class="blob-1"></div>
+                    <div class="blob-2"></div>
+                    <div class="blob-3"></div>
+                    <div class="blob-4"></div>
                 </div>
-                <nav class="nav-links">
-                    <a href="index.html">Board</a> <!-- Link to main page -->
-                    <a href="#" id="navMemoriesLink">Memories</a> <!-- New Link with ID -->
-                    <a href="#" id="navAboutLink">About</a>
-                    <a href="#" id="navHelpLink">Help</a> <!-- New Link with ID -->
-                </nav>
-                <div class="nav-buttons">
-                    <!-- Fixed action buttons are moved here for mobile responsiveness -->
-                    <button id="themeToggleBtnMobile" class="fixed-action-btn theme-toggle-btn" aria-pressed="false" aria-label="Toggle light/dark theme">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    <button id="birthdayInfoBtnMobile" class="fixed-action-btn birthday-info-btn" aria-label="Show upcoming birthdays">
-                        <i class="fas fa-birthday-cake"></i>
-                    </button>
-                    <button id="calendarInfoBtnMobile" class="fixed-action-btn calendar-info-btn" aria-label="Show calendar and holidays">
-                        <i class="fas fa-calendar-alt"></i>
-                    </button>
-                    <!-- Removed menuButton -->
+
+                <!-- NEW SECTION 1: Nav and Hero -->
+                <div id="heroAndNavSection" class="section-container">
+                    <div class="main-nav">
+                        <div class="logo-group">
+                            <div class="logo-icon"></div>
+                            <span class="logo-text">UsRemind</span>
+                        </div>
+                        <nav class="nav-links">
+                            <a href="index.html">Board</a>
+                            <a href="#" id="navMemoriesLink">Memories</a>
+                            <a href="#" id="navAboutLink">About</a>
+                            <a href="#" id="navHelpLink">Help</a>
+                        </nav>
+                        <!-- Removed the duplicated mobile buttons from here -->
+                        <div class="nav-buttons">
+                            <!-- This div is now empty, but its styles for flex layout on mobile still apply to the fixed-buttons-wrapper when it becomes static -->
+                        </div>
+                    </div>
+
+                    <div class="hero-section">
+                        <h1 class="hero-headline">REMEMBER THE LITTLE THINGS</h1>
+                        <p class="hero-subtext">A shared reminder space for two people who care about each other a lot.</p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- HERO section is now the "front page" and inside main-card -->
-            <div class="hero-section">
-                <h1 class="hero-headline">REMEMBER THE LITTLE THINGS</h1>
-                <p class="hero-subtext">A shared reminder space for two people who care about each other a lot.</p>
-            </div>
+                <!-- NEW SECTION 2: Grid and Footer -->
+                <div id="gridAndFooterSection" class="section-container">
+                    <div class="main-grid-section">
+                        <div class="grid-container">
 
-            <!-- GRID -->
-            <div class="main-grid-section">
-                <div class="grid-container">
+                            <!-- Card 1: Daily Message -->
+                            <div class="card bg-white md:row-span-2">
+                                <div class="card-text-muted">Today's Reminder</div>
+                                <div class="card-text-muted -mt-1 mb-4">From our chat</div>
+                                <div class="text-tangerine text-4xl mb-3 leading-none"><i class="fas fa-quote-left"></i></div>
+                                <h3 class="card-title text-ink">
+                                    <span id="dailyMessage">Daily Text goes here...</span>
+                                </h3>
+                                <div class="flex gap-3 mt-4 justify-center flex-wrap">
+                                    <button id="copyBtn" class="control-btn bg-blue-button text-white px-4 py-2 rounded-full text-sm shadow-soft">
+                                        <i class="fas fa-copy mr-2"></i> Copy
+                                    </button>
+                                    <button id="shareBtn" class="control-btn bg-black-5 text-ink px-4 py-2 rounded-full text-sm">
+                                        <i class="fas fa-share-alt mr-2"></i> Share
+                                    </button>
+                                </div>
+                            </div>
 
-                    <!-- Card 1: Daily Message -->
-                    <div class="card bg-white md:row-span-2">
-                        <div class="card-text-muted">Today's Reminder</div>
-                        <div class="card-text-muted -mt-1 mb-4">From our chat</div> <!-- Updated text -->
-                        <div class="text-tangerine text-4xl mb-3 leading-none"><i class="fas fa-quote-left"></i></div>
-                        <h3 class="card-title text-ink">
-                            <span id="dailyMessage">Daily Text goes here...</span>
-                        </h3>
-                        <div class="flex gap-3 mt-4 justify-center flex-wrap">
-                            <button id="copyBtn" class="control-btn bg-blue-button text-white px-4 py-2 rounded-full text-sm shadow-soft">
-                                <i class="fas fa-copy mr-2"></i> Copy
-                            </button>
-                            <button id="shareBtn" class="control-btn bg-black-5 text-ink px-4 py-2 rounded-full text-sm">
-                                <i class="fas fa-share-alt mr-2"></i> Share
-                            </button>
+                            <!-- Card 2: Our YouTube History -->
+                            <div class="card bg-mustard">
+                                <span class="inline-block text-xs font-semibold bg-black-10 text-ink px-3 py-1 rounded-full">Our History</span>
+                                <h4 class="card-title text-ink mt-3">Our YouTube History</h4>
+                                <div class="flex flex-col items-center justify-center mt-2">
+                                    <span id="youtubeHistoryContent" class="text-ink/80 text-sm uppercase text-center">Your shared YouTube watch history will appear here!</span>
+                                </div>
+                            </div>
+
+                            <!-- Card 3: Weather Widget (Replaced Daily Affirmation) -->
+                            <div class="card bg-coral">
+                                <span class="inline-block text-xs font-semibold bg-white/20 text-white px-3 py-1 rounded-full">Daily Info</span>
+                                <h4 class="card-title text-white mt-3">Weather Widget</h4>
+                                <div class="weather-widget-content">
+                                    <i class="fas fa-cloud-sun game-icon icon"></i>
+                                    <!-- Removed the <p class="text"></p> element entirely -->
+                                </div>
+                            </div>
+
+                            <!-- Card 4: Our Movies & Shows (Replaced Date Night Ideas) -->
+                            <div class="card bg-sky">
+                                <h4 class="card-title text-white">Our Movies & Shows</h4>
+                                <div class="card-image-placeholder">
+                                    <img src="https://placehold.co/300x150/27C1F7/ffffff?text=Movies+%26+Shows" alt="Movies and Shows Placeholder">
+                                </div>
+                                <p class="card-image-text text-white/90">A collection of our favorite films and series.</p>
+                            </div>
+
+                            <!-- Card 5: Shared Images Coming Soon (Remains the same) -->
+                            <div class="card bg-leaf">
+                                <h4 class="card-title text-ink">Our Shared Images</h4>
+                                <p class="card-body-text text-ink-80">A collection of our favorite moments.</p>
+                                <div class="mt-5 bg-white rounded-2xl p-3 flex items-center justify-center gap-3">
+                                    <i class="fas fa-image text-4xl text-ink-60"></i>
+                                    <span class="text-ink text-sm font-semibold">Coming Soon...</span>
+                                </div>
+                            </div>
+
+                            <!-- Card 6: Our Pinterest Boards (Replaced Special Dates) -->
+                            <div class="card bg-fuchsia text-white">
+                                <h4 class="card-title text-2xl font-semibold">Our Pinterest Boards</h4>
+                                <div class="card-image-placeholder">
+                                    <img src="https://placehold.co/300x150/FF4FB8/ffffff?text=Pinterest+Boards" alt="Pinterest Boards Placeholder">
+                                </div>
+                                <p class="card-image-text text-white/90">Visual inspiration from our shared boards!</p>
+                            </div>
+
                         </div>
                     </div>
 
-                    <!-- Card 2: Our YouTube History -->
-                    <div class="card bg-mustard">
-                        <span class="inline-block text-xs font-semibold bg-black-10 text-ink px-3 py-1 rounded-full">Our History</span>
-                        <h4 class="card-title text-ink mt-3">Our YouTube History</h4>
-                        <div class="flex flex-col items-center justify-center mt-2">
-                            <span id="youtubeHistoryContent" class="text-ink/80 text-sm uppercase text-center">Your shared YouTube watch history will appear here!</span>
+                    <!-- FOOTER STRIP -->
+                    <div class="footer-strip-section">
+                        <div class="footer-strip">
+                            <div class="footer-text">Ready to have some fun?</div>
+                            <div class="flex gap-3 mt-3 sm:mt-0">
+                                <a href="kanban-board.html" class="footer-button-primary">Play some games</a>
+                                <button id="aboutButton" class="footer-button-secondary">About</button>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Card 3: Weather Widget (Replaced Daily Affirmation) -->
-                    <div class="card bg-coral">
-                        <span class="inline-block text-xs font-semibold bg-white/20 text-white px-3 py-1 rounded-full">Daily Info</span>
-                        <h4 class="card-title text-white mt-3">Weather Widget</h4>
-                        <div class="weather-widget-content">
-                            <i class="fas fa-cloud-sun game-icon icon"></i>
-                            <!-- Removed the <p class="text"></p> element entirely -->
-                        </div>
-                    </div>
-
-                    <!-- Card 4: Our Movies & Shows (Replaced Date Night Ideas) -->
-                    <div class="card bg-sky">
-                        <h4 class="card-title text-white">Our Movies & Shows</h4>
-                        <div class="card-image-placeholder">
-                            <img src="https://placehold.co/300x150/27C1F7/ffffff?text=Movies+%26+Shows" alt="Movies and Shows Placeholder">
-                        </div>
-                        <p class="card-image-text text-white/90">A collection of our favorite films and series.</p>
-                    </div>
-
-                    <!-- Card 5: Shared Images Coming Soon (Remains the same) -->
-                    <div class="card bg-leaf">
-                        <h4 class="card-title text-ink">Our Shared Images</h4>
-                        <p class="card-body-text text-ink-80">A collection of our favorite moments.</p>
-                        <div class="mt-5 bg-white rounded-2xl p-3 flex items-center justify-center gap-3">
-                            <i class="fas fa-image text-4xl text-ink-60"></i>
-                            <span class="text-ink text-sm font-semibold">Coming Soon...</span>
-                        </div>
-                    </div>
-
-                    <!-- Card 6: Our Pinterest Boards (Replaced Special Dates) -->
-                    <div class="card bg-fuchsia text-white">
-                        <h4 class="card-title text-2xl font-semibold">Our Pinterest Boards</h4>
-                        <div class="card-image-placeholder">
-                            <img src="https://placehold.co/300x150/FF4FB8/ffffff?text=Pinterest+Boards" alt="Pinterest Boards Placeholder">
-                        </div>
-                        <p class="card-image-text text-white/90">Visual inspiration from our shared boards!</p>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- FOOTER STRIP -->
-            <div class="footer-strip-section">
-                <div class="footer-strip">
-                    <div class="footer-text">Ready to have some fun?</div>
-                    <div class="flex gap-3 mt-3 sm:mt-0">
-                        <a href="kanban-board.html" class="footer-button-primary">Play some games</a>
-                        <button id="aboutButton" class="footer-button-secondary">About</button>
                     </div>
                 </div>
             </div>
@@ -1262,7 +1295,7 @@
             const birthdayNotification = document.getElementById('birthdayNotification');
             const birthdayMessageSpan = document.getElementById('birthdayMessage');
             if (birthdayFound) {
-                birthdayMessageSpan.textContent = `Happy Birthday, ${birthdayNames.join(' and ')}! �`;
+                birthdayMessageSpan.textContent = `Happy Birthday, ${birthdayNames.join(' and ')}! 🎂`;
                 birthdayNotification.classList.add('show');
             } else {
                 birthdayNotification.classList.remove('show');
@@ -1318,9 +1351,8 @@
                 }
             }
             const birthdayInfoBtn = document.getElementById('birthdayInfoBtn');
-            const birthdayInfoBtnMobile = document.getElementById('birthdayInfoBtnMobile'); // Get mobile button too
+            // Removed reference to birthdayInfoBtnMobile as it's no longer in HTML
 
-            // Consistent update for both desktop and mobile buttons
             const updateBirthdayButton = (btn) => {
                 if (btn) {
                     if (hasUpcoming) {
@@ -1332,7 +1364,6 @@
             };
 
             updateBirthdayButton(birthdayInfoBtn);
-            updateBirthdayButton(birthdayInfoBtnMobile);
         }
 
         function showUpcomingBirthdays() {
@@ -1369,17 +1400,15 @@
             const isDark = document.documentElement.classList.contains('dark-mode');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
 
-            // Function to update button icon and aria-pressed state
             const updateThemeButton = (btn) => {
                 if (btn) {
+                    const isDark = document.documentElement.classList.contains('dark-mode');
                     btn.setAttribute('aria-pressed', isDark);
                     btn.querySelector('i').className = `fas ${isDark ? 'fa-sun' : 'fa-moon'}`;
                 }
             };
 
-            // Update desktop and mobile theme toggle buttons
             updateThemeButton(document.getElementById('themeToggleBtn'));
-            updateThemeButton(document.getElementById('themeToggleBtnMobile'));
         }
 
         // --- CARD EXPANSION LOGIC ---
@@ -1391,6 +1420,15 @@
             }
 
             expandedCard = cardElement;
+
+            // Explicitly apply critical positioning styles immediately to ensure consistency
+            expandedCard.style.position = 'fixed';
+            expandedCard.style.top = '50%';
+            expandedCard.style.left = '50%';
+            expandedCard.style.transform = 'translate(-50%, -50%) scale(1)';
+            expandedCard.style.zIndex = '2001'; // Ensure it's on top
+
+            // Add the class for other styles like width, height, padding, shadow, border, overflow-y
             expandedCard.classList.add('is-expanded');
             
             // Create and show backdrop
@@ -1405,24 +1443,25 @@
             // Disable body scrolling
             document.body.classList.add('no-scroll');
 
-            // Close card on backdrop click
-            backdrop.addEventListener('click', collapseCard);
-            // Close card on card click (unless it's an interactive element inside)
-            expandedCard.addEventListener('click', handleExpandedCardClick);
-        }
-
-        function handleExpandedCardClick(event) {
-            // Prevent collapsing if a button or link inside the card is clicked
-            if (event.target.closest('button') || event.target.closest('a')) {
-                event.stopPropagation(); // Don't let the click bubble up to the card itself
-                return;
-            }
-            collapseCard();
+            // Close card on backdrop click only
+            backdrop.addEventListener('click', (event) => {
+                // Only collapse if the click target is the backdrop itself, not its children (the expanded card)
+                if (event.target === backdrop) {
+                    collapseCard();
+                }
+            });
         }
 
         function collapseCard() {
             if (expandedCard) {
                 expandedCard.classList.remove('is-expanded');
+
+                // Revert explicit styles applied during expansion
+                expandedCard.style.position = '';
+                expandedCard.style.top = '';
+                expandedCard.style.left = '';
+                expandedCard.style.transform = '';
+                expandedCard.style.zIndex = '';
                 
                 const backdrop = document.querySelector('.backdrop');
                 if (backdrop) {
@@ -1433,13 +1472,100 @@
                 }
 
                 document.body.classList.remove('no-scroll');
-                expandedCard.removeEventListener('click', handleExpandedCardClick);
                 expandedCard = null;
             }
         }
 
 
-        // --- INITIALIZATION ---
+        // --- SMOOTH SCROLLING LOGIC ---
+        let currentScroll = 0; // The current interpolated scroll position
+        let targetScroll = 0;  // The actual scroll position the user is trying to reach
+        const ease = 0.08;      // Controls the "delay" or inertia (smaller = more delay, larger = less delay)
+        let maxScroll = 0;      // Stores the maximum scrollable height of the content
+
+        const smoothScrollContainer = document.getElementById('smoothScrollContainer');
+
+        /**
+         * Calculates the maximum scrollable height of the content, accounting for body padding.
+         * This is essential because native scrolling is disabled, and we need
+         * to know the bounds for our custom scrolling.
+         */
+        function calculateMaxScroll() {
+            if (smoothScrollContainer) {
+                // Get the total scrollable height of the content within the smoothScrollContainer.
+                const contentHeight = smoothScrollContainer.scrollHeight;
+
+                // Calculate the height of the visible viewport area after considering body padding.
+                const bodyStyle = getComputedStyle(document.body);
+                const bodyPaddingTop = parseFloat(bodyStyle.paddingTop);
+                const bodyPaddingBottom = parseFloat(bodyStyle.paddingBottom);
+                const visibleViewportHeight = window.innerHeight - bodyPaddingTop - bodyPaddingBottom;
+
+                // The maximum scroll is the content height minus the visible area.
+                // This ensures that the entire content can be scrolled into view without cropping.
+                maxScroll = contentHeight - visibleViewportHeight;
+
+                // Ensure maxScroll is never negative if content is shorter than the viewport.
+                if (maxScroll < 0) maxScroll = 0;
+            }
+        }
+
+        /**
+         * The main animation loop for smooth scrolling.
+         * It continuously updates the `currentScroll` towards `targetScroll`
+         * using linear interpolation (LERP) and applies a `translateY` transform
+         * to the content wrapper.
+         */
+        function smoothScrollAnimation() {
+            // LERP calculation: smoothly move currentScroll towards targetScroll
+            currentScroll += (targetScroll - currentScroll) * ease;
+
+            if (smoothScrollContainer) {
+                // Apply the inverse transform to the content wrapper.
+                // Math.round is used to prevent blurry text rendering issues that can occur
+                // with sub-pixel transforms.
+                smoothScrollContainer.style.transform = `translateY(${-Math.round(currentScroll)}px)`;
+            }
+
+            // Call handleParallax with the current interpolated scroll position
+            handleParallax(currentScroll);
+
+            // Request the next animation frame for a continuous loop
+            requestAnimationFrame(smoothScrollAnimation);
+        }
+
+        // --- PARALLAX LOGIC (adapted to work with smooth scrolling) ---
+        // Store initial rotations for ribbons to combine with dynamic translateY
+        const initialRibbon1Rotate = -25; // from CSS
+        const initialRibbon2Rotate = 25;  // from CSS
+
+        function handleParallax(scrollPosition) {
+            // Ribbons - make them move slightly slower than the main content scroll
+            const ribbon1 = document.querySelector('.ribbon-decoration .ribbon-1');
+            const ribbon2 = document.querySelector('.ribbon-decoration .ribbon-2');
+
+            if (ribbon1) {
+                // Combine initial rotation with dynamic translateY based on scrollPosition
+                ribbon1.style.transform = `translateY(${scrollPosition * 0.1}px) rotate(${initialRibbon1Rotate}deg)`;
+            }
+            if (ribbon2) {
+                ribbon2.style.transform = `translateY(${scrollPosition * 0.05}px) rotate(${initialRibbon2Rotate}deg)`;
+            }
+
+            // Blobs - make them move slightly faster or in a different direction
+            const blob1 = document.querySelector('.pattern-blobs .blob-1');
+            const blob2 = document.querySelector('.pattern-blobs .blob-2');
+            const blob3 = document.querySelector('.pattern-blobs .blob-3');
+            const blob4 = document.querySelector('.pattern-blobs .blob-4');
+
+            // For blobs, apply translateY directly based on scrollPosition
+            if (blob1) blob1.style.transform = `translateY(${scrollPosition * -0.05}px)`;
+            if (blob2) blob2.style.transform = `translateY(${scrollPosition * 0.08}px)`;
+            if (blob3) blob3.style.transform = `translateY(${scrollPosition * -0.03}px)`;
+            if (blob4) blob4.style.transform = `translateY(${scrollPosition * 0.06}px)`;
+        }
+
+
         document.addEventListener('DOMContentLoaded', () => {
             setDailyMessage(); // Initial message from hardcoded array
             // setDailyAffirmation(); // No longer needed, replaced by weather widget
@@ -1452,9 +1578,8 @@
 
             // Theme toggle button listeners (desktop and mobile)
             const themeToggleBtn = document.getElementById('themeToggleBtn');
-            const themeToggleBtnMobile = document.getElementById('themeToggleBtnMobile');
+            // Removed reference to themeToggleBtnMobile as it's no longer in HTML
 
-            // Initialize theme toggle button states
             const initializeThemeButton = (btn) => {
                 if (btn) {
                     const isDark = document.documentElement.classList.contains('dark-mode');
@@ -1464,7 +1589,6 @@
                 }
             };
             initializeThemeButton(themeToggleBtn);
-            initializeThemeButton(themeToggleBtnMobile);
 
             // Birthday and Calendar features initialization
             checkBirthdayToday();
@@ -1479,13 +1603,10 @@
 
             // Birthday info button listeners (desktop and mobile)
             const birthdayInfoBtn = document.getElementById('birthdayInfoBtn');
-            const birthdayInfoBtnMobile = document.getElementById('birthdayInfoBtnMobile');
+            // Removed reference to birthdayInfoBtnMobile as it's no longer in HTML
 
             if (birthdayInfoBtn) {
                 birthdayInfoBtn.addEventListener('click', showUpcomingBirthdays);
-            }
-            if (birthdayInfoBtnMobile) {
-                birthdayInfoBtnMobile.addEventListener('click', showUpcomingBirthdays);
             }
 
             const closeUpcomingBirthdaysModalBtn = document.getElementById('closeUpcomingBirthdaysModal');
@@ -1505,13 +1626,10 @@
 
             // Calendar info button listeners (desktop and mobile)
             const calendarInfoBtn = document.getElementById('calendarInfoBtn');
-            const calendarInfoBtnMobile = document.getElementById('calendarInfoBtnMobile');
+            // Removed reference to calendarInfoBtnMobile as it's no longer in HTML
 
             if (calendarInfoBtn) {
                 calendarInfoBtn.addEventListener('click', showCalendarModal);
-            }
-            if (calendarInfoBtnMobile) {
-                calendarInfoBtnMobile.addEventListener('click', showCalendarModal);
             }
 
             const closeCalendarModalBtn = document.getElementById('closeCalendarModal');
@@ -1674,6 +1792,32 @@
                     expandCard(card);
                 });
             });
+
+            // Recalculate max scroll on load and resize
+            calculateMaxScroll();
+            window.addEventListener('resize', calculateMaxScroll);
+
+            // Override native scroll behavior
+            window.addEventListener('wheel', (e) => {
+                // Only prevent default if not scrolling inside an expanded card with overflow-y: auto
+                if (!expandedCard || !e.target.closest('.card.is-expanded') || e.target.closest('.card.is-expanded').scrollHeight <= e.target.closest('.card.is-expanded').clientHeight) {
+                    e.preventDefault(); // Prevent native scroll
+                    targetScroll += e.deltaY; // Update target scroll based on wheel input
+                } else {
+                    // If inside an expanded card and it has its own scrollbar, let it scroll naturally
+                    return;
+                }
+                
+                // Clamp targetScroll to ensure it stays within bounds
+                if (targetScroll < 0) targetScroll = 0;
+                if (targetScroll > maxScroll) targetScroll = maxScroll;
+            }, { passive: false }); // Use passive: false to allow preventDefault
+
+            // Start the smooth scroll animation loop
+            smoothScrollAnimation();
+
+            // Initial call to set parallax elements (using currentScroll for initial state)
+            handleParallax(currentScroll);
         });
 
         // The setJokeOfTheDay function definition remains here, though it's no longer called
@@ -1693,4 +1837,3 @@
     </script>
 </body>
 </html>
-�

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smooth Scroll Page</title>
+    <style>
+        /* Basic styling for the body and content */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            color: #333;
+            overflow: hidden; /* Crucial: Disable native body scrolling */
+            height: 100vh; /* Ensure body takes full viewport height */
+        }
+
+        /* Styles for the smooth scroll wrapper */
+        .smooth-scroll-wrapper {
+            width: 100%;
+            will-change: transform; /* Performance hint for the browser */
+            /* No transition here; JavaScript handles the animation */
+        }
+
+        /* Styling for content sections to make the page scrollable */
+        .section {
+            padding: 100px 20px;
+            min-height: 100vh; /* Make each section at least viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
+            color: white; /* Default text color for sections */
+        }
+
+        /* Example section colors */
+        .section-1 { background-color: #2d9cff; } /* Blue */
+        .section-2 { background-color: #ff7a00; } /* Orange */
+        .section-3 { background-color: #4CAF50; } /* Green */
+        .section-4 { background-color: #9c27b0; } /* Purple */
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            max-width: 800px;
+        }
+
+        /* Optional: Fixed header for demonstration */
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="fixed-header">
+        <h1>Smooth Scrolling Demo</h1>
+        <p>Scroll down to experience the effect!</p>
+    </div>
+
+    <!-- This is the main container whose transform will be animated -->
+    <div id="smoothScrollContainer" class="smooth-scroll-wrapper">
+        <div class="section section-1">
+            <h1>Welcome to a Smoother Experience!</h1>
+            <p>This section demonstrates custom smooth scrolling with inertia.</p>
+        </div>
+        <div class="section section-2">
+            <h1>Fluid Motion</h1>
+            <p>Notice how the scroll doesn't stop abruptly, but eases into place.</p>
+        </div>
+        <div class="section section-3">
+            <h1>Enhanced Interactivity</h1>
+            <p>This effect adds a professional and dynamic feel to your web page.</p>
+        </div>
+        <div class="section section-4">
+            <h1>Ready for Your Projects!</h1>
+            <p>Integrate this into your GitHub projects for a polished touch.</p>
+        </div>
+    </div>
+
+    <script>
+        // --- SMOOTH SCROLLING LOGIC ---
+        let currentScroll = 0;
+        let targetScroll = 0;
+        const ease = 0.08; // Adjust this value for more or less "delay" (smaller = more delay, e.g., 0.05 for more, 0.1 for less)
+        let maxScroll = 0; // Will store the maximum scrollable height
+
+        const smoothScrollContainer = document.getElementById('smoothScrollContainer');
+
+        /**
+         * Calculates the maximum scrollable height of the content.
+         * This is essential because we are preventing native scrolling and
+         * manually transforming the content.
+         */
+        function calculateMaxScroll() {
+            if (smoothScrollContainer) {
+                maxScroll = smoothScrollContainer.scrollHeight - window.innerHeight;
+                // Ensure maxScroll is not negative if content is shorter than viewport
+                if (maxScroll < 0) maxScroll = 0;
+            }
+        }
+
+        /**
+         * The main animation loop for smooth scrolling.
+         * It updates the current scroll position towards the target scroll position
+         * using linear interpolation (LERP) and applies a translateY transform.
+         */
+        function smoothScrollAnimation() {
+            // LERP calculation for smooth scrolling
+            currentScroll += (targetScroll - currentScroll) * ease;
+
+            if (smoothScrollContainer) {
+                // Apply the inverse transform to the content wrapper
+                // Math.round is used for pixel-perfect rendering to avoid blurry text
+                smoothScrollContainer.style.transform = `translateY(${-Math.round(currentScroll)}px)`;
+            }
+
+            requestAnimationFrame(smoothScrollAnimation);
+        }
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Recalculate max scroll on load
+            calculateMaxScroll();
+
+            // Recalculate max scroll on window resize
+            window.addEventListener('resize', calculateMaxScroll);
+
+            // Override native scroll behavior using the 'wheel' event
+            window.addEventListener('wheel', (e) => {
+                e.preventDefault(); // Prevent native browser scroll
+
+                // Update target scroll based on mouse wheel input
+                targetScroll += e.deltaY;
+
+                // Clamp targetScroll to ensure it stays within bounds
+                if (targetScroll < 0) targetScroll = 0;
+                if (targetScroll > maxScroll) targetScroll = maxScroll;
+            }, { passive: false }); // Use passive: false to allow preventDefault
+
+            // Start the smooth scroll animation loop
+            smoothScrollAnimation();
+        });
+    </script>
+</body>
+</html>
